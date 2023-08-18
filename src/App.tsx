@@ -5,8 +5,25 @@ import styled from "styled-components";
 
 import Header from "./routes/Header";
 
+const Roulette = styled.div<{ fullwidth: boolean }>`
+  width: 100%;
+  height: auto;
+  padding: ${(props) => (props.fullwidth ? "40px 24px" : "80px 0")};
+  background-color: rgba(0, 0, 0, 0.222);
+`;
+
+const PcInnerBox = styled.div<{ fullwidth: boolean }>`
+  width: ${(props) => (props.fullwidth ? "100%" : "1200px")};
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+`;
+
+const TxtBox = styled.div<{}>``;
+
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [actWidth, setActWidth] = useState<boolean>(false);
   const [isNavToggle, setIsNavToggle] = useState(false);
 
   const handleToggle = () => {
@@ -15,7 +32,9 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
+      const newWindowWidth = window.innerWidth;
       setWindowWidth(window.innerWidth);
+      setActWidth(newWindowWidth < 720);
     };
 
     window.addEventListener("resize", handleResize);
@@ -33,6 +52,12 @@ function App() {
           onToggle={handleToggle}
           windowWidth={windowWidth}
         />
+
+        <Roulette fullwidth={actWidth}>
+          <PcInnerBox fullwidth={actWidth}>
+            <div></div>
+          </PcInnerBox>
+        </Roulette>
 
         {/* {!isNavToggle && (
           <Routes>

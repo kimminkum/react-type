@@ -1,38 +1,114 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: 0px solid red;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  font-size: 0.9rem;
+  line-height: 1rem;
+  word-wrap: break-word;
+  word-break: keep-all;
+  letter-spacing: -0.75;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: inherit;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h1 {
+  font-size: 3.5rem;
+  line-height: 4.5rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+  line-height: 3.2rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+  line-height: 2.3rem;
+}
+
+h4 {
+  font-size: 1.35rem;
+  line-height: 1.9rem;
+}
+h5 {
+  font-size: 1.08rem;
+  line-height: 1.3rem;
+}
+
+a,
+a:visited {
+  position: relative;
+  color: inherit;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0%;
+  width: 0%;
+  height: 100%;
+  transition: 0.4s;
+}
+
+a:hover::after {
+  width: 100%;
+}
+
+button {
+  background: none;
+  width: auto;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+ul {
+  list-style: none;
+}
+
+.flex_start {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: flex-start;
+}
+
+.flex {
+  display: flex;
+}
+.flex_sb {
+  display: flex;
+  justify-content: space-between;
+}
+.flex_sa {
+  display: flex;
+  justify-content: space-around;
+}
+.flex_end {
+  display: flex;
+  justify-content: flex-end;
+}
+.flex_center {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+@media screen and (min-width: 1200px) {
+  h1 {
+    font-size: 4.2rem;
+    line-height: 6rem;
   }
 }
