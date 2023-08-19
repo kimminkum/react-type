@@ -4,7 +4,7 @@ import React from "react";
 import Accordion from "./Accordian";
 import SelectBox from "./SelectBox";
 
-const App: React.FC = () => {
+const Example: React.FC = () => {
   return (
     <div>
       <Accordion title="Section 1">
@@ -24,4 +24,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Example;
