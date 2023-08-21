@@ -15,6 +15,11 @@ const PcInnerBox = styled.div<{ fullwidth: boolean }>`
   text-align: center;
 `;
 
+const TxtBox = styled.div`
+  padding: 30px 20px;
+  margin: 20px 0;
+`;
+
 const RouletteOuter = styled.div<{ mbwidth: boolean }>`
   position: relative;
   overflow: hidden;
@@ -69,6 +74,10 @@ const Roulette: React.FC<RouletteProps> = ({ mobileWidth, tablitWidth }) => {
   return (
     <RouletteContainer fullwidth={tablitWidth}>
       <PcInnerBox fullwidth={tablitWidth}>
+        <TxtBox>
+          <h1>룰렛 돌리기 Ver.kmk</h1>
+        </TxtBox>
+
         <RouletteOuter mbwidth={mobileWidth}>
           <RouletteBase></RouletteBase>
           <RouletteFin></RouletteFin>
