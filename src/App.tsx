@@ -3,16 +3,31 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
 
-import Header from "./routes/Header";
-import Roulette from "./components/Roulette";
+import Template from "./components/Template";
+import TodoList from "./components/TodoList";
 
 const TxtBox = styled.div<{}>``;
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [tabWidth, setTabWidth] = useState<boolean>(false);
-  const [mbWidth, setMbWidth] = useState<boolean>(false);
   const [isNavToggle, setIsNavToggle] = useState(false);
+  const [todo, setTodo] = useState([
+    {
+      id: 1,
+      text: "할일 1",
+      checked: true
+    },
+    {
+      id: 2,
+      text: "할일 2",
+      checked: false
+    },
+    {
+      id: 3,
+      text: "할일 3",
+      checked: true
+    }
+  ]);
 
   const handleToggle = () => {
     setIsNavToggle(!isNavToggle);
@@ -20,10 +35,7 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      const newWindowWidth = window.innerWidth;
       setWindowWidth(window.innerWidth);
-      setTabWidth(newWindowWidth < 1200);
-      setMbWidth(newWindowWidth < 360);
     };
 
     window.addEventListener("resize", handleResize);
@@ -36,14 +48,9 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Header
-          isNavToggle={isNavToggle}
-          onToggle={handleToggle}
-          windowWidth={windowWidth}
-        />
-
-        <Roulette mobileWidth={mbWidth} tablitWidth={tabWidth}></Roulette>
-
+        <Template screenWidth={windowWidth}>
+          <TodoList todos={todo}></TodoList>
+        </Template>
         {/* {!isNavToggle && (
           <Routes>
             <Route
