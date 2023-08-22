@@ -44,7 +44,7 @@ const RouletteBase = styled.div`
 const RouletteFin = styled.div`
   width: 0;
   height: 0;
-  top: 0;
+  top: 3%;
   left: 50%;
   transform: translateX(-50%);
   position: absolute;
@@ -53,16 +53,19 @@ const RouletteFin = styled.div`
   border-color: #ff4400 transparent transparent transparent;
 `;
 
-const RouletteFin2 = styled.div`
-  width: 0;
-  height: 0;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+const RouletteItemWrapper = styled.div``;
+
+const RouletteItem = styled.div`
   position: absolute;
-  border-style: solid;
-  border-width: 12px 5px 0 5px;
-  border-color: #ffd400 transparent transparent transparent;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 1.3rem;
+  padding-top: 7%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 `;
 
 interface RouletteProps {
@@ -75,13 +78,19 @@ const Roulette: React.FC<RouletteProps> = ({ mobileWidth, tablitWidth }) => {
     <RouletteContainer fullwidth={tablitWidth}>
       <PcInnerBox fullwidth={tablitWidth}>
         <TxtBox>
-          <h1>룰렛 돌리기 Ver.kmk</h1>
+          <h1>폐기</h1>
         </TxtBox>
 
         <RouletteOuter mbwidth={mobileWidth}>
-          <RouletteBase></RouletteBase>
+          <RouletteBase>
+            <RouletteItemWrapper>
+              <RouletteItem>100점</RouletteItem>
+              <RouletteItem>300점</RouletteItem>
+              <RouletteItem>500점</RouletteItem>
+              <RouletteItem>800점</RouletteItem>
+            </RouletteItemWrapper>
+          </RouletteBase>
           <RouletteFin></RouletteFin>
-          <RouletteFin2></RouletteFin2>
         </RouletteOuter>
       </PcInnerBox>
     </RouletteContainer>
