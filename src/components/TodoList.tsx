@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 import styled from "styled-components";
+import TodoItem from "./TodoItem";
 
 interface Todo {
   id: number;
@@ -17,7 +18,7 @@ const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
     <div>
       {todos.map((todo) => (
-        <div key={todo.id}>{todo.text}</div>
+        <TodoItem key={todo.id} todo={todo} />
       ))}
     </div>
   );

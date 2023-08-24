@@ -1,18 +1,18 @@
-import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import styled from "styled-components";
-
-interface TodoItemProps {
-  windowWidth: number;
+interface Todo {
+  id: number;
+  text: string;
+  checked: boolean;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ windowWidth }) => {
-  return (
-    <div>
-      <div></div>
-    </div>
-  );
+interface TodoItemProps {
+  todo: Todo;
+}
+
+const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+  const { text } = todo;
+  return <div>{text}</div>;
 };
 
 export default TodoItem;
