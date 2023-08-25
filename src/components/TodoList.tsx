@@ -4,6 +4,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
 
+const ListContainer = styled.div`
+  width: 90vw;
+  margin: 0 auto;
+  padding-bottom: 30px;
+`;
+
 interface Todo {
   id: number;
   text: string;
@@ -16,11 +22,11 @@ interface TodoListProps {
 
 const TodoList: React.FC<TodoListProps> = ({ todos }) => {
   return (
-    <div>
+    <ListContainer>
       {todos.map((todo) => (
         <TodoItem key={todo.id} todo={todo} />
       ))}
-    </div>
+    </ListContainer>
   );
 };
 

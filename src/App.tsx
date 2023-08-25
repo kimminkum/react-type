@@ -3,10 +3,23 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+
 import Template from "./components/Template";
 import TodoList from "./components/TodoList";
 
-const TxtBox = styled.div<{}>``;
+const AddTodoBtn = styled.div`
+  position: fixed;
+  right: 36px;
+  bottom: 36px;
+  z-index: 100;
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  font-size: 5rem;
+  color: #f67280;
+`;
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -48,8 +61,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Template screenWidth={windowWidth}>
+        <Template screenWidth={windowWidth} todoLength={todo.length}>
           <TodoList todos={todo}></TodoList>
+          <AddTodoBtn>
+            <FontAwesomeIcon icon={faCirclePlus} />
+          </AddTodoBtn>
         </Template>
         {/* {!isNavToggle && (
           <Routes>
