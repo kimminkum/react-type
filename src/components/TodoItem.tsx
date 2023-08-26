@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const ItemContainer = styled.div`
-  margin-left: auto;
   margin-right: auto;
   border-radius: 5px;
   box-shadow: 2px 3px 6px 1px #f67280;
@@ -54,12 +53,18 @@ interface Todo {
 
 interface TodoItemProps {
   todo: Todo;
+  onCheckToggle: (id: number) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onCheckToggle }) => {
   const { id, text, checked } = todo;
+
+  const handleCheckToggle = () => {
+    onCheckToggle(id);
+  };
+
   return (
-    <ItemContainer>
+    <ItemContainer onClick={handleCheckToggle}>
       <ItemContent checked={checked}>
         <ItemTxt checked={checked}>{text}</ItemTxt>
       </ItemContent>

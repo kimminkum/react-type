@@ -18,13 +18,18 @@ interface Todo {
 
 interface TodoListProps {
   todos: Todo[];
+  onCheckToggle: (id: number) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos }) => {
+const TodoList: React.FC<TodoListProps> = ({ todos, onCheckToggle }) => {
   return (
     <ListContainer>
       {todos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onCheckToggle={() => onCheckToggle(todo.id)}
+        />
       ))}
     </ListContainer>
   );

@@ -27,13 +27,13 @@ const AddTodoBtn = styled.div`
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [insertToggle, setInsertToggle] = useState(false);
-  const nextId = useRef(0);
+  const nextId = useRef(4);
 
   const onInsertToggle = () => {
     setInsertToggle(!insertToggle);
   };
 
-  const [todos, setTodo] = useState([
+  const [todos, setTodos] = useState([
     {
       id: 1,
       text: "할일 1",
@@ -60,9 +60,17 @@ function App() {
         text,
         checked: false
       };
-      setTodo((todos) => todos.concat(todo));
+      setTodos((todos) => todos.concat(todo));
       nextId.current += 1;
     }
+  };
+
+  const onCheckToggle = (id: number) => {
+    setTodos((todos) =>
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, checked: !todo.checked } : todo
+      )
+    );
   };
 
   useEffect(() => {
@@ -81,7 +89,7 @@ function App() {
     <div className="App">
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Template screenWidth={windowWidth} todoLength={todos.length}>
-          <TodoList todos={todos}></TodoList>
+          <TodoList todos={todos} onCheckToggle={onCheckToggle}></TodoList>
           <AddTodoBtn onClick={onInsertToggle}>
             <FontAwesomeIcon icon={faCirclePlus} />
           </AddTodoBtn>
