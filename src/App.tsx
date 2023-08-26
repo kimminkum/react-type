@@ -8,6 +8,7 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 
 import Template from "./components/Template";
 import TodoList from "./components/TodoList";
+import TodoInsert from "./components/TodoInsert";
 
 const AddTodoBtn = styled.div`
   position: fixed;
@@ -21,10 +22,17 @@ const AddTodoBtn = styled.div`
   color: #f67280;
 `;
 
+let nextId = 4;
+
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [isNavToggle, setIsNavToggle] = useState(false);
-  const [todo, setTodo] = useState([
+  const [insertToggle, setInsertToggle] = useState(false);
+
+  const onInsertToggle = () => {
+    setInsertToggle(!insertToggle);
+  };
+
+  const [todos, setTodo] = useState([
     {
       id: 1,
       text: "할일 1",
@@ -42,8 +50,18 @@ function App() {
     }
   ]);
 
-  const handleToggle = () => {
-    setIsNavToggle(!isNavToggle);
+  const onInsertTodo = (text: string) => {
+    if (text === "") {
+      return alert("할 일을 입력해주세요.");
+    } else {
+      const todo = {
+        id: nextId,
+        text,
+        checked: false
+      };
+      setTodo((todos) => todos.concat(todo));
+      nextId++;
+    }
   };
 
   useEffect(() => {
@@ -61,13 +79,27 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Template screenWidth={windowWidth} todoLength={todo.length}>
-          <TodoList todos={todo}></TodoList>
-          <AddTodoBtn>
+        <Template screenWidth={windowWidth} todoLength={todos.length}>
+          <TodoList todos={todos}></TodoList>
+          <AddTodoBtn onClick={onInsertToggle}>
             <FontAwesomeIcon icon={faCirclePlus} />
           </AddTodoBtn>
+          {insertToggle && (
+            <TodoInsert
+              onInsertToggle={onInsertToggle}
+              onInsertTodo={() => onInsertTodo("")}
+            />
+          )}
         </Template>
-        {/* {!isNavToggle && (
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+
+{
+  /* {!isNavToggle && (
           <Routes>
             <Route
               path="/"
@@ -78,15 +110,12 @@ function App() {
               element={<About windowWidth={windowWidth} />}
             ></Route>
           </Routes>
-        )} */}
-
-        {/* {isNavToggle && (
-          <Nav isNavToggle={isNavToggle} onToggle={handleToggle}></Nav>
-        )}
-        <Footer onToggle={handleToggle} windowWidth={windowWidth} /> */}
-      </BrowserRouter>
-    </div>
-  );
+        )} */
 }
 
-export default App;
+{
+  /* {isNavToggle && (
+          <Nav isNavToggle={isNavToggle} onToggle={handleToggle}></Nav>
+        )}
+        <Footer onToggle={handleToggle} windowWidth={windowWidth} /> */
+}

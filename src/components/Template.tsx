@@ -6,6 +6,7 @@ import styled from "styled-components";
 const TemplateBox = styled.div`
   padding-top: 20px;
   max-height: 100vh;
+  padding: 20px;
 `;
 
 const TemplateTitle = styled.div`
