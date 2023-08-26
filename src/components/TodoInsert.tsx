@@ -28,12 +28,14 @@ const PopBox = styled.form`
   margin-left: 14%;
   position: fixed;
   top: 40%;
+  left: 25%;
+  right: 25%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 200;
-  width: 300px;
+  width: 50vh;
   height: 150px;
   border-radius: 5px;
   box-shadow: 2px 3px 6px 1px #f67280;
@@ -63,7 +65,6 @@ const SubmitBtn = styled.button`
   display: flex;
   align-items: center;
   cursor: pointer;
-  transition: 0.1s background ease-in;
 `;
 
 interface TodoInsertProps {
@@ -96,8 +97,14 @@ const TodoInsert: React.FC<TodoInsertProps> = ({
     <div>
       <Bg onClick={onInsertToggle}></Bg>
       <PopBox onSubmit={onSubmit}>
-        <TxtIn placeholder="want" value={value} onChange={onTxtChange}></TxtIn>
-        <SubmitBtn type="submit">
+        <TxtIn
+          placeholder="want"
+          type="text"
+          name="text"
+          value={value}
+          onChange={onTxtChange}
+        ></TxtIn>
+        <SubmitBtn type="submit" onSubmit={onSubmit}>
           <FontAwesomeIcon icon={faCirclePlus} />
         </SubmitBtn>
       </PopBox>

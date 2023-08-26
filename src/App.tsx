@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import styled from "styled-components";
@@ -22,11 +22,12 @@ const AddTodoBtn = styled.div`
   color: #f67280;
 `;
 
-let nextId = 4;
+// let nextId = 4;
 
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [insertToggle, setInsertToggle] = useState(false);
+  const nextId = useRef(0);
 
   const onInsertToggle = () => {
     setInsertToggle(!insertToggle);
@@ -55,12 +56,12 @@ function App() {
       return alert("할 일을 입력해주세요.");
     } else {
       const todo = {
-        id: nextId,
+        id: nextId.current,
         text,
         checked: false
       };
       setTodo((todos) => todos.concat(todo));
-      nextId++;
+      nextId.current += 1;
     }
   };
 
@@ -87,7 +88,7 @@ function App() {
           {insertToggle && (
             <TodoInsert
               onInsertToggle={onInsertToggle}
-              onInsertTodo={() => onInsertTodo("")}
+              onInsertTodo={onInsertTodo}
             />
           )}
         </Template>
