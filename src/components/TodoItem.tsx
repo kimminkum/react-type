@@ -13,10 +13,9 @@ const ItemContainer = styled.div`
 
 const ItemContent = styled.div<{ checked: boolean }>`
   position: relative;
-  flex: 1;
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 18px;
   cursor: pointer;
 
   &::before {
@@ -36,7 +35,7 @@ const ItemContent = styled.div<{ checked: boolean }>`
 
 const ItemTxt = styled.div<{ checked: boolean }>`
   flex: 1;
-  margin-left: 26px;
+  margin-left: 12px;
   width: 90%;
   word-wrap: break-word;
   color: ${(props) => (props.checked ? "#5c567b" : "black")};
@@ -54,9 +53,16 @@ interface Todo {
 interface TodoItemProps {
   todo: Todo;
   onCheckToggle: (id: number) => void;
+  onInsertToggle: () => void;
+  onChangeSelectedTodo: (todo: Todo) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, onCheckToggle }) => {
+const TodoItem: React.FC<TodoItemProps> = ({
+  todo,
+  onCheckToggle,
+  onInsertToggle,
+  onChangeSelectedTodo
+}) => {
   const { id, text, checked } = todo;
 
   const handleCheckToggle = () => {
@@ -64,10 +70,22 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onCheckToggle }) => {
   };
 
   return (
-    <ItemContainer onClick={handleCheckToggle}>
-      <ItemContent checked={checked}>
-        <ItemTxt checked={checked}>{text}</ItemTxt>
-      </ItemContent>
+    <ItemContainer>
+      <ItemContent
+        checked={checked}
+        onClick={() => {
+          onCheckToggle(id);
+        }}
+      ></ItemContent>
+      <ItemTxt
+        checked={checked}
+        onClick={() => {
+          onChangeSelectedTodo(todo);
+          onInsertToggle();
+        }}
+      >
+        {text}
+      </ItemTxt>
     </ItemContainer>
   );
 };

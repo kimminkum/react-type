@@ -19,16 +19,25 @@ interface Todo {
 interface TodoListProps {
   todos: Todo[];
   onCheckToggle: (id: number) => void;
+  onInsertToggle: () => void;
+  onChangeSelectedTodo: (todo: Todo) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos, onCheckToggle }) => {
+const TodoList: React.FC<TodoListProps> = ({
+  todos,
+  onCheckToggle,
+  onInsertToggle,
+  onChangeSelectedTodo
+}) => {
   return (
     <ListContainer>
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}
-          onCheckToggle={() => onCheckToggle(todo.id)}
+          onCheckToggle={onCheckToggle}
+          onInsertToggle={onInsertToggle}
+          onChangeSelectedTodo={onChangeSelectedTodo}
         />
       ))}
     </ListContainer>

@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCirclePlus,
+  faTrash,
+  faPencil
+} from "@fortawesome/free-solid-svg-icons";
 
 import styled from "styled-components";
 
@@ -67,12 +71,37 @@ const SubmitBtn = styled.button`
   cursor: pointer;
 `;
 
+const Rewright = styled.div`
+  padding-top: 20px;
+  background: none;
+  outline: none;
+  border: none;
+  color: #f67280;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+
+  & > .icons {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    cursor: pointer;
+  }
+`;
+
+interface Todo {
+  id: number;
+  text: string;
+  checked: boolean;
+}
+
 interface TodoInsertProps {
+  selectedTodo: Todo | null;
   onInsertToggle: () => void;
   onInsertTodo: (text: string) => void;
 }
 
 const TodoInsert: React.FC<TodoInsertProps> = ({
+  selectedTodo,
   onInsertToggle,
   onInsertTodo
 }) => {
@@ -93,6 +122,12 @@ const TodoInsert: React.FC<TodoInsertProps> = ({
     onInsertToggle();
   };
 
+  useEffect(() => {
+    if (selectedTodo) {
+      setValue(selectedTodo.text);
+    }
+  }, [selectedTodo]);
+
   return (
     <div>
       <Bg onClick={onInsertToggle}></Bg>
@@ -104,9 +139,16 @@ const TodoInsert: React.FC<TodoInsertProps> = ({
           value={value}
           onChange={onTxtChange}
         ></TxtIn>
-        <SubmitBtn type="submit" onSubmit={onSubmit}>
-          <FontAwesomeIcon icon={faCirclePlus} />
-        </SubmitBtn>
+        {selectedTodo ? (
+          <Rewright>
+            <FontAwesomeIcon className="icons" icon={faTrash} />
+            <FontAwesomeIcon className="icons" icon={faPencil} />
+          </Rewright>
+        ) : (
+          <SubmitBtn type="submit" onSubmit={onSubmit}>
+            <FontAwesomeIcon icon={faCirclePlus} />
+          </SubmitBtn>
+        )}
       </PopBox>
     </div>
   );

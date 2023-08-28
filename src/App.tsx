@@ -24,8 +24,15 @@ const AddTodoBtn = styled.div`
 
 // let nextId = 4;
 
+interface Todo {
+  id: number;
+  text: string;
+  checked: boolean;
+}
+
 function App() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
   const [insertToggle, setInsertToggle] = useState(false);
   const nextId = useRef(4);
 
@@ -73,6 +80,10 @@ function App() {
     );
   };
 
+  const onChangeSelectedTodo = (todo: Todo) => {
+    setSelectedTodo(todo);
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -89,12 +100,18 @@ function App() {
     <div className="App">
       <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Template screenWidth={windowWidth} todoLength={todos.length}>
-          <TodoList todos={todos} onCheckToggle={onCheckToggle}></TodoList>
+          <TodoList
+            todos={todos}
+            onCheckToggle={onCheckToggle}
+            onInsertToggle={onInsertToggle}
+            onChangeSelectedTodo={onChangeSelectedTodo}
+          ></TodoList>
           <AddTodoBtn onClick={onInsertToggle}>
             <FontAwesomeIcon icon={faCirclePlus} />
           </AddTodoBtn>
           {insertToggle && (
             <TodoInsert
+              selectedTodo={selectedTodo}
               onInsertToggle={onInsertToggle}
               onInsertTodo={onInsertTodo}
             />
