@@ -84,6 +84,12 @@ function App() {
     setSelectedTodo(todo);
   };
 
+  const onRemove = (id: number) => {
+    onInsertToggle();
+    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+    setSelectedTodo(null);
+  };
+
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -114,6 +120,7 @@ function App() {
               selectedTodo={selectedTodo}
               onInsertToggle={onInsertToggle}
               onInsertTodo={onInsertTodo}
+              onRemove={onRemove}
             />
           )}
         </Template>

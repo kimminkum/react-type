@@ -98,12 +98,14 @@ interface TodoInsertProps {
   selectedTodo: Todo | null;
   onInsertToggle: () => void;
   onInsertTodo: (text: string) => void;
+  onRemove: (id: number) => void;
 }
 
 const TodoInsert: React.FC<TodoInsertProps> = ({
   selectedTodo,
   onInsertToggle,
-  onInsertTodo
+  onInsertTodo,
+  onRemove
 }) => {
   const [value, setValue] = useState("");
 
@@ -141,8 +143,14 @@ const TodoInsert: React.FC<TodoInsertProps> = ({
         ></TxtIn>
         {selectedTodo ? (
           <Rewright>
-            <FontAwesomeIcon className="icons" icon={faTrash} />
             <FontAwesomeIcon className="icons" icon={faPencil} />
+            <FontAwesomeIcon
+              className="icons"
+              icon={faTrash}
+              onClick={() => {
+                onRemove(selectedTodo.id);
+              }}
+            />
           </Rewright>
         ) : (
           <SubmitBtn type="submit" onSubmit={onSubmit}>
@@ -155,3 +163,6 @@ const TodoInsert: React.FC<TodoInsertProps> = ({
 };
 
 export default TodoInsert;
+function id(id: any) {
+  throw new Error("Function not implemented.");
+}
