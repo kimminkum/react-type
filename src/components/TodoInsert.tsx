@@ -99,17 +99,19 @@ interface TodoInsertProps {
   onInsertToggle: () => void;
   onInsertTodo: (text: string) => void;
   onRemove: (id: number) => void;
+  onUpdate: (id: number, text: string) => void;
 }
 
 const TodoInsert: React.FC<TodoInsertProps> = ({
   selectedTodo,
   onInsertToggle,
   onInsertTodo,
-  onRemove
+  onRemove,
+  onUpdate
 }) => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(selectedTodo ? selectedTodo.text : "");
 
-  const onTxtChange = (e: any) => {
+  const onTxtChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
@@ -133,7 +135,15 @@ const TodoInsert: React.FC<TodoInsertProps> = ({
   return (
     <div>
       <Bg onClick={onInsertToggle}></Bg>
-      <PopBox onSubmit={onSubmit}>
+      <PopBox
+        onSubmit={
+          selectedTodo
+            ? () => {
+                onUpdate(selectedTodo.id, value);
+              }
+            : onSubmit
+        }
+      >
         <TxtIn
           placeholder="want"
           type="text"
@@ -143,7 +153,13 @@ const TodoInsert: React.FC<TodoInsertProps> = ({
         ></TxtIn>
         {selectedTodo ? (
           <Rewright>
-            <FontAwesomeIcon className="icons" icon={faPencil} />
+            <FontAwesomeIcon
+              className="icons"
+              icon={faPencil}
+              onClick={() => {
+                onUpdate(selectedTodo.id, value);
+              }}
+            />
             <FontAwesomeIcon
               className="icons"
               icon={faTrash}

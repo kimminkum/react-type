@@ -37,6 +37,9 @@ function App() {
   const nextId = useRef(4);
 
   const onInsertToggle = () => {
+    if (selectedTodo) {
+      setSelectedTodo(null);
+    }
     setInsertToggle(!insertToggle);
   };
 
@@ -87,7 +90,14 @@ function App() {
   const onRemove = (id: number) => {
     onInsertToggle();
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
-    setSelectedTodo(null);
+    // setSelectedTodo(null);
+  };
+
+  const onUpdate = (id: number, text: string) => {
+    onInsertToggle();
+    setTodos((todos) =>
+      todos.map((todo) => (todo.id === id ? { ...todo, text } : todo))
+    );
   };
 
   useEffect(() => {
@@ -121,6 +131,7 @@ function App() {
               onInsertToggle={onInsertToggle}
               onInsertTodo={onInsertTodo}
               onRemove={onRemove}
+              onUpdate={onUpdate}
             />
           )}
         </Template>
